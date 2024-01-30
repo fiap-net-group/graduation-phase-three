@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE67FCCB-B008-48F1-B453-59F312E468B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1BD012C0-E006-47FA-9936-6748D1AD70B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechBlog.NewsManager.API", "src\TechBlog.NewsManager.API\TechBlog.NewsManager.API.csproj", "{6E9A6E55-BE69-427B-B474-6BE82B49D97E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechBlog.NewsManager.Tests", "tests\TechBlog.NewsManager.Tests\TechBlog.NewsManager.Tests.csproj", "{8515DA71-1B8D-449A-9DB5-B7A280B8918E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{502EC997-88FE-4BD7-A440-4B267F2341BE}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		docs\Overall Domain Storytelling.png = docs\Overall Domain Storytelling.png
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{183C01DD-442F-4E4F-BF6E-9981CC1E3B8C}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\azure-pipelines-CD.yml = pipelines\azure-pipelines-CD.yml
+		pipelines\azure-pipelines-CI.yml = pipelines\azure-pipelines-CI.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{4FE54F8C-859F-44F6-B95E-87A6B4DEA5F5}"
+	ProjectSection(SolutionItems) = preProject
+		docker\docker-compose-staging.yml = docker\docker-compose-staging.yml
+		docker\docker-compose.yml = docker\docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E9A6E55-BE69-427B-B474-6BE82B49D97E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E9A6E55-BE69-427B-B474-6BE82B49D97E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E9A6E55-BE69-427B-B474-6BE82B49D97E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E9A6E55-BE69-427B-B474-6BE82B49D97E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8515DA71-1B8D-449A-9DB5-B7A280B8918E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8515DA71-1B8D-449A-9DB5-B7A280B8918E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8515DA71-1B8D-449A-9DB5-B7A280B8918E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8515DA71-1B8D-449A-9DB5-B7A280B8918E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E9A6E55-BE69-427B-B474-6BE82B49D97E} = {CE67FCCB-B008-48F1-B453-59F312E468B9}
+		{8515DA71-1B8D-449A-9DB5-B7A280B8918E} = {1BD012C0-E006-47FA-9936-6748D1AD70B4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EC3179C-CD67-40B9-960E-C75411268CE3}
+	EndGlobalSection
+EndGlobal

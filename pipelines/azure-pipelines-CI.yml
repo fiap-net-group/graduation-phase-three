@@ -1,0 +1,76 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: 'wget -qO- https://raw.githubusercontent.com/artifacts-credprovider/master/helpers/installcredprovider.sh  | bash'
+  displayName: 'Install NuGet Tool'
+
+- script: 'dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.5.8'
+  displayName: 'Install Report Tool'
+
+- task: UseDotNet@2
+  displayName: 'Install .NET 7'
+  inputs:
+    packageType: 'sdk'
+    version: 7.0.x
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Packages'
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+    projects: '**/*.sln'
+    verbosityRestore: 'Minimal'
+
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare analysis on SonarCloud'
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'fiap-net-group'
+    scannerMode: 'MSBuild'
+    projectKey: 'fiap-net-group_graduation-phase-two'
+    projectName: 'graduation-phase-two'
+    extraProperties: |
+      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+      sonar.cs.opencover.reportsPaths=$(Agent.BuildDirectory)/**/coverage.opencover.xml
+      sonar.verbose=true
+      sonar.exclusions=**/obj/**,**/*.dll,**/*Program.cs,**/*appsettings.json,**/*appsettings.*.json,**/*Dockerfile*
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Solution'
+  inputs:
+    command: 'build'
+    projects: '**/*.sln'
+    arguments: '--no-restore --configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run Tests'
+  inputs:
+    command: 'test'
+    projects: '**/*.sln'
+    arguments: '--configuration Release --no-build --collect:"XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Code Coverage'
+  inputs:
+    testRunner: 'VSTest'
+    testResultsFiles: '$(Agent.TempDirectory)/**.*trx'
+    mergeTestResults: true 
+
+- task: SonarCloudAnalyze@1
+  displayName: 'Run Sonar Analysis'
+  continueOnError: true
+
+- task: SonarCloudPublish@1
+  displayName: 'Publish Sonar Analysis Result'
+  continueOnError: true
+  inputs:
+    pollingTimeoutSec: '300'
