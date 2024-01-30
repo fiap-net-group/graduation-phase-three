@@ -1,0 +1,17 @@
+version: '3.3'
+name: graduation-phase-two
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: ../
+      dockerfile: ./src/TechBlog.NewsManager.API/Dockerfile
+    container_name: graduation-phase-two-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5015:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
